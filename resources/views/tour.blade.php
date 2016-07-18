@@ -54,6 +54,7 @@
 				<div style="height:79px;"></div>
 				<?php
 					$num=0;
+          $number=0;
 					$userTourJoin=$userTour->where('type','join');
 				?>				
 				      <div class="carousel-inner">
@@ -61,7 +62,7 @@
 				      	<div class="item active">
 					      	<ul class="list-inline">
 								@foreach($userTourJoin as $row)
-								    <a href="{{ url('/user/') }}/{{$row->user_id}}" data-toggle="tooltip" title="{{$row->name}}"><img src="{{ url('/uploads/users/avatar_photo')}}/{{$row->avatar_photo}}" alt="Thumbnail Image" class="img-thumbnail" height=10.71% width=10.71%></a>
+								    <a href="{{ url('/user/') }}/{{$row->user_id}}" data-toggle="tooltip" title="{{$row->name}}"><img src="{{ url('/uploads/users/avatar_photo')}}/{{$row->avatar_photo}}" alt="Thumbnail Image" class="img-thumbnail" height=10.5% width=10.5%></a>
 								    <?php
 								     $num=$num+1;
 								    ?>
@@ -94,7 +95,7 @@
         	if($checkType=='follow') $fill=collect(['followed ','join tour','unfollow tour','#34ACDC','/link_update','follow','/link_delete','follow']);
         	if($checkType=='waitjoin') $fill=collect(['followed ','cancel joining tour','unfollow tour','#40dbb2','/link_update','waitjoin','/link_delete','waitjoin']);
         	if($checkType=='join') $fill=collect(['joined ','unfollow tour','unjoin tour','#4cd964','/link_delete','join','/link_update','join']);
-        	if($checkType=='own') $fill=collect(['owner ',' modify tour',' delete tour','#FF3B30']);
+        	if($checkType=='own') $fill=collect(['owner ',' modify this tour',' delete this tour','#FF3B30']);
         ?>
         <div class="col-md-12 col-md-offset-0 section-gray">
         	<div class="col-md-2">
@@ -121,8 +122,8 @@
 					        <a href="javascript:{}" onclick="document.getElementById('form_link2').submit(); return false;">{{$fill[2]}}</a>           		
 		            	</li>
 		            	@else
-		            	<li><a href="#modifyTourModal" data-toggle="modal"><i class="glyphicon glyphicon-edit"></i>{{$fill[1]}}</a></li>
-		            	<li><a href="#deleteTourModal" data-toggle="modal"><i class="glyphicon glyphicon-trash"></i>{{$fill[2]}}</a></li>
+		            	<li style="text-align:left"><a href="#modifyTourModal" data-toggle="modal"><i class="glyphicon glyphicon-edit"></i>{{$fill[1]}}</a></li>
+		            	<li style="text-align:left"><a href="#deleteTourModal" data-toggle="modal"><i class="glyphicon glyphicon-trash"></i>{{$fill[2]}}</a></li>
 		            	@endif
 		            </ul>
 				</ul>
@@ -272,12 +273,12 @@
       </div>
       <div class="modal-body" style="height:400px;overflow-y: auto;">
           @foreach($userTourWaitjoin as $user)
-              <div class="col-md-11" style="margin-top:2px;margin-bottom:2px;">
+              <div class="col-md-11" style="margin-top:2px;margin-bottom:2px;display: flex;align-items: center;justify-content: center;">
                 <div class="col-md-2">
-                  <img id="" src="{{ url('/uploads/users/avatar_photo')}}/{{$user->avatar_photo}}" alt="" class="img-thumbnail" height="48px" width="48px"/>
+                  <a href="{{url("user")}}/{{$user->id}}"><img id="" src="{{ url('/uploads/users/avatar_photo')}}/{{$user->avatar_photo}}" alt="" class="img-thumbnail" height="48px" width="48px"></a>
                 </div>
                 <div class="col-md-5">
-                  <p>{{$user->name}}</p>
+                  <a href="{{url("user")}}/{{$user->id}}" style="color:black"><p>{{$user->name}}</p></a>
                 </div>
                 <div class="col-md-2" style="margin-left:4%">
                   <a id="" href="javascript:{}" class="btn btn-success">Agree</a>
@@ -300,18 +301,31 @@
         <h4 class="modal-title">Follow List</h4>
       </div>
       <div class="modal-body" style="height:400px;overflow-y: auto;">
-          @foreach($userTourFollow as $user)
+          
           <div class="row">
               <div class="col-md-12" style="margin-top:2px;margin-bottom:2px;">
-                <div class="col-md-2">
-                  <img id="" src="{{ url('/uploads/users/avatar_photo')}}/{{$user->avatar_photo}}" alt="" class="img-thumbnail" height="48px" width="48px"/>
+              
+                <div class="row" style="display: flex;align-items: center;justify-content: center;">
+                @foreach($userTourFollow as $user)
+                  <div class="col-sm-2">
+                    <a href="{{url("user")}}/{{$user->id}}"><img id="" src="{{ url('/uploads/users/avatar_photo')}}/{{$user->avatar_photo}}" alt="" class="img-thumbnail" height="48px" width="48px"/></a>
+                  </div>
+                  <div class="col-sm-4">
+                    <a href="{{url("user")}}/{{$user->id}}" style="color:black"><p>{{$user->name}}</p></a>
+                  </div>
+                  <?php
+                     $number=$number+1;
+                    ?>
+                @if($number%2==0) 
                 </div>
-                <div class="col-md-4">
-                  <p>{{$user->name}}</p>
+                <div class="row" style="display: flex;align-items: center;justify-content: center;">
+                @endif
+                @endforeach
                 </div>
+                
               </div>
           </div>
-          @endforeach
+          
     </div>
   </div>
 </div>
@@ -326,12 +340,12 @@
       </div>
       <div class="modal-body" style="height:400px;overflow-y: auto;">
           @foreach($userTourJoin as $user)
-              <div class="row">
+              <div class="row" style="display: flex;align-items: center;justify-content: center;">
                 <div class="col-sm-2">
-                  <img id="" src="{{ url('/uploads/users/avatar_photo')}}/{{$user->avatar_photo}}" alt="" class="img-thumbnail" height="48px" width="48px"/>
+                  <a href="{{url("user")}}/{{$user->id}}"><img id="" src="{{ url('/uploads/users/avatar_photo')}}/{{$user->avatar_photo}}" alt="" class="img-thumbnail" height="48px" width="48px"/></a>
                 </div>
                 <div class="col-sm-6">
-                  <p>{{$user->name}}</p>
+                  <a href="{{url("user")}}/{{$user->id}}" style="color:black"><p>{{$user->name}}</p></a>
                 </div>
                 <div class="col-sm-2">
                   <a id="" href="javascript:{}" class="btn btn-primary">Unjoin</a>
