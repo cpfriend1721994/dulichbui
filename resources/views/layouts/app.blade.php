@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <link rel="shortcut icon" type="image/x-icon" href="../images/backpack.png" />
     <title>Đi Bụi</title>
@@ -29,6 +30,7 @@
 
 
 </head>
+
 <body id="app-layout">
 
 {{--  --}}
@@ -306,19 +308,22 @@
         }
 
     </script>
-        <div class='blurred-container navbar navbar-fixed-bottom' style="height:90px">
-            <div style="height:55px"></div>
-            <div class="container text-left">
-                <b style="color:white">Copyright &copy 2016 NNMT. All Rights Reserved.</b>
-                <a href="#"><small style="color:white" class="fa fa-lg fa-skype pull-right">  </small></a>
-                <a href="#"><small style="color:white" class="fa fa-lg fa-google-plus pull-right">  </small></a>
-                <a href="#"><small style="color:white" class="fa fa-lg fa-linkedin pull-right">  </small></a>
-                <a href="#"><small style="color:white" class="fa fa-lg fa-twitter pull-right">  </small></a>
-                <a href="#"><small style="color:white" class="fa fa-lg fa-facebook pull-right">  </small></a>
-                <a href="#"><small style="color:white" class="fa fa-lg fa-github pull-right">  </small></a>
-            </div>
-        </div>
 {{--  --}}
-    
 </body>
+
+<footer>
+    <div class='blurred-container navbar navbar-fixed-bottom' style="height:90px">
+        <div style="height:55px"></div>
+        <div class="container text-left">
+            <b style="color:white">Copyright &copy 2016 NNMT. All Rights Reserved.</b>
+            <a href="#"><small style="color:white" class="fa fa-lg fa-skype pull-right">  </small></a>
+            <a href="#"><small style="color:white" class="fa fa-lg fa-google-plus pull-right">  </small></a>
+            <a href="#"><small style="color:white" class="fa fa-lg fa-linkedin pull-right">  </small></a>
+            <a href="#"><small style="color:white" class="fa fa-lg fa-twitter pull-right">  </small></a>
+            <a href="#"><small style="color:white" class="fa fa-lg fa-facebook pull-right">  </small></a>
+            <a href="#"><small style="color:white" class="fa fa-lg fa-github pull-right">  </small></a>
+        </div>
+    </div>
+</footer>
+
 </html>

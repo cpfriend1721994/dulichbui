@@ -156,6 +156,11 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /*
+        There are a few Laravel bridges/wrappers for the Pusher PHP library that allow you to integrate with Pusher. 
+        The most popular bridge we know of is vinkla/pusher by Vincent Klaiber
+        */
+
     ],
 
     /*
