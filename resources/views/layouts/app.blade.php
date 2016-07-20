@@ -38,8 +38,8 @@
 {{--  --}}
 
 <div id="navbar-full" class='blurred-container'>
-<div class="img-src" style="background-image: url('../assets/img/cover_4.jpg')"></div>
-  <div class='img-src blur' style="background-image: url('../assets/img/cover_4_blur.jpg')"></div>
+<div class="img-src" style="background-image: url('../assets/img/cover_4.jpg');height:100%;"></div>
+  <div class='img-src blur' style="background-image: url('../assets/img/cover_4_blur.jpg');height:100%;"></div>
     <div id="navbar">
     <!--
         navbar-default can be changed with navbar-ct-blue navbar-ct-azzure navbar-ct-red navbar-ct-green navbar-ct-orange
