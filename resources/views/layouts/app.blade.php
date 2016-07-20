@@ -19,11 +19,7 @@
     <link href="../assets/css/get-shit-done.css" rel="stylesheet" />
     <link href="../assets/css/demo.css" rel="stylesheet" />
 
-    {{-- <link href="../login-register.css" rel="stylesheet" />
-    <script src="../login-register.js" type="text/javascript"></script> --}}
-
     <link href="../assets/css/fresh-bootstrap-table.css" rel="stylesheet" />
-    {{-- <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'> --}}
     <link href="../roboto.css" rel='stylesheet' type='text/css'>
     <link href='../css/rotating-card.css' rel='stylesheet' />
 
@@ -95,12 +91,6 @@
 <div style="height:100px;" ></div>
 <div id="carousel">
     <div id="carousel-example-generic" class="carousel slide gsdk-transition" data-ride="carousel">
-      <!-- Indicators -->
-      {{-- <ol class="carousel-indicators">
-        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-        <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-      </ol> --}}
 
       <!-- Wrapper for slides -->
       <div class="carousel-inner">

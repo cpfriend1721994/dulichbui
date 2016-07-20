@@ -10,15 +10,12 @@ use App\Tour;
 
 use App\Link;
 
+use App\Comment;
+
 use Auth;
 
 class TourController extends Controller
 {
-    
-    public function index()
-    {
-        //
-    }
 
     public function create(Request $request)
     {
@@ -47,10 +44,6 @@ class TourController extends Controller
     return redirect('user/'.Auth::user()->id);    
     }
 
-    public function store(Request $request)
-    {
-        //
-    }
 
     public function show($id)
     {
@@ -60,10 +53,6 @@ class TourController extends Controller
         return view('tour')->with("id",$tour)->with("userTour",$link);
     }
 
-    public function edit($id)
-    {
-        //
-    }
 
     public function update(Request $request, $id)
     {
