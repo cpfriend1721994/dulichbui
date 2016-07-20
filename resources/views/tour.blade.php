@@ -2,7 +2,6 @@
 
 @section('content')
 
-
 <div class="container">
     <div class="row">
         <div class="col-md-12 col-md-offset-0" style="background-image: url('../uploads/tours/cover_photo/{{$id->cover_photo}}');background-size: cover;background-attachment:scroll;">
@@ -272,19 +271,55 @@
         <h4 class="modal-title">Request List</h4>
       </div>
       <div class="modal-body" style="height:400px;overflow-y: auto;">
+      <input class="hidden" id ="csrf" value="{{ csrf_token() }}"/>
+      <script src="../assets/js/jquery-1.11.2.min.js"></script>
           @foreach($userTourWaitjoin as $user)
-              <div class="col-md-11" style="margin-top:2px;margin-bottom:2px;display: flex;align-items: center;justify-content: center;">
+              <script>
+              var CSRF_TOKEN=$('#csrf').val();
+              $(document).ready(function(){
+                  $("#buttonA{{$user->user_id}}").click(function(){
+                        $.ajax({
+                          url: '/link_update_by_own', 
+                          method:'post', 
+                          data: {_token:CSRF_TOKEN, user_id:{{$user->user_id}}, tour_id:{{$id->id}}, choose:'agree'},
+                          dataType: 'text',
+                          success: function(result){
+                            $("#divR{{$user->user_id}}").remove();
+                          }
+                        });
+                        $("#requestModal").on('hidden.bs.modal', function () { location.reload() }); 
+                      });
+              });
+              </script>
+              <script>
+              var CSRF_TOKEN=$('#csrf').val();
+              $(document).ready(function(){
+                  $("#buttonD{{$user->user_id}}").click(function(){
+                        $.ajax({
+                          url: '/link_update_by_own', 
+                          method:'post', 
+                          data: {_token:CSRF_TOKEN, user_id:{{$user->user_id}}, tour_id:{{$id->id}}, choose:'disagree'},
+                          dataType: 'text',
+                          success: function(result){
+                            $("#divR{{$user->user_id}}").remove();
+                          }
+                        });
+                        $("#requestModal").on('hidden.bs.modal', function () { location.reload() }); 
+                      });
+              });
+              </script>
+              <div id="divR{{$user->user_id}}" class="col-md-11" style="margin-top:2px;margin-bottom:2px;display: flex;align-items: center;justify-content: center;">
                 <div class="col-md-2">
-                  <a href="{{url("user")}}/{{$user->id}}"><img id="" src="{{ url('/uploads/users/avatar_photo')}}/{{$user->avatar_photo}}" alt="" class="img-thumbnail" height="48px" width="48px"></a>
+                  <a href="{{url("user")}}/{{$user->user_id}}"><img id="" src="{{ url('/uploads/users/avatar_photo')}}/{{$user->avatar_photo}}" alt="" class="img-thumbnail" height="48px" width="48px"></a>
                 </div>
                 <div class="col-md-5">
-                  <a href="{{url("user")}}/{{$user->id}}" style="color:black"><p>{{$user->name}}</p></a>
+                  <a href="{{url("user")}}/{{$user->user_id}}" style="color:black"><p>{{$user->name}}</p></a>
                 </div>
                 <div class="col-md-2" style="margin-left:4%">
-                  <a id="" href="javascript:{}" class="btn btn-success">Agree</a>
+                  <a id="buttonA{{$user->user_id}}" href="javascript:{}" class="btn btn-success">Agree</a>
                 </div>
                 <div class="col-md-2" style="margin-left:4%">
-                  <a id="" href="javascript:{}" class="btn btn-primary">Disagree</a>
+                  <a id="buttonD{{$user->user_id}}" href="javascript:{}" class="btn btn-primary">Disagree</a>
                 </div>
               </div>
           @endforeach
@@ -308,10 +343,10 @@
                 <div class="row" style="display: flex;align-items: center;justify-content: center;">
                 @foreach($userTourFollow as $user)
                   <div class="col-sm-2">
-                    <a href="{{url("user")}}/{{$user->id}}"><img id="" src="{{ url('/uploads/users/avatar_photo')}}/{{$user->avatar_photo}}" alt="" class="img-thumbnail" height="48px" width="48px"/></a>
+                    <a href="{{url("user")}}/{{$user->user_id}}"><img id="" src="{{ url('/uploads/users/avatar_photo')}}/{{$user->avatar_photo}}" alt="" class="img-thumbnail" height="48px" width="48px"/></a>
                   </div>
                   <div class="col-sm-4">
-                    <a href="{{url("user")}}/{{$user->id}}" style="color:black"><p>{{$user->name}}</p></a>
+                    <a href="{{url("user")}}/{{$user->user_id}}" style="color:black"><p>{{$user->name}}</p></a>
                   </div>
                   <?php
                      $number=$number+1;
@@ -324,8 +359,7 @@
                 </div>
                 
               </div>
-          </div>
-          
+          </div>      
     </div>
   </div>
 </div>
@@ -339,19 +373,39 @@
         <h4 class="modal-title">Join List</h4>
       </div>
       <div class="modal-body" style="height:400px;overflow-y: auto;">
+      <input class="hidden" id ="csrf" value="{{ csrf_token() }}"/>
+      <script src="../assets/js/jquery-1.11.2.min.js"></script>
           @foreach($userTourJoin as $user)
-              <div class="row" style="display: flex;align-items: center;justify-content: center;">
+              <script>
+              var CSRF_TOKEN=$('#csrf').val();
+              $(document).ready(function(){
+                  $("#buttonJ{{$user->user_id}}").click(function(){
+                        $.ajax({
+                          url: '/link_update_by_own', 
+                          method:'post', 
+                          data: {_token:CSRF_TOKEN, user_id:{{$user->user_id}}, tour_id:{{$id->id}}, choose:'unjoin'},
+                          dataType: 'text',
+                          success: function(result){
+                            $("#divJ{{$user->user_id}}").remove();
+                          }
+                        });
+                        $("#joinModal").on('hidden.bs.modal', function () { location.reload() });    
+                      });
+              });
+              </script>
+            <div id="divJ{{$user->user_id}}" class="row" style="display: flex;align-items: center;justify-content: center;">
                 <div class="col-sm-2">
-                  <a href="{{url("user")}}/{{$user->id}}"><img id="" src="{{ url('/uploads/users/avatar_photo')}}/{{$user->avatar_photo}}" alt="" class="img-thumbnail" height="48px" width="48px"/></a>
+                  <a href="{{url("user")}}/{{$user->user_id}}"><img id="" src="{{ url('/uploads/users/avatar_photo')}}/{{$user->avatar_photo}}" alt="" class="img-thumbnail" height="48px" width="48px"/></a>
                 </div>
                 <div class="col-sm-6">
-                  <a href="{{url("user")}}/{{$user->id}}" style="color:black"><p>{{$user->name}}</p></a>
+                  <a href="{{url("user")}}/{{$user->user_id}}" style="color:black"><p>{{$user->name}}</p></a>
                 </div>
                 <div class="col-sm-2">
-                  <a id="" href="javascript:{}" class="btn btn-primary">Unjoin</a>
+                  <a id="buttonJ{{$user->user_id}}" href="javascript:{}" onclick="" class="btn btn-primary">Unjoin</a>
                 </div>
-              </div>
+              </div>  
           @endforeach
+          
     </div>
   </div>
 </div>

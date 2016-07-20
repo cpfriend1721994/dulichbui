@@ -26,4 +26,5 @@ Route::group(['middleware' => 'user'], function () {
     Route::post('link_create','TourController@createLink');
     Route::post('link_update','TourController@updateLink');
     Route::post('link_delete','TourController@deleteLink');
+    Route::post('link_update_by_own','TourController@updateLinkByOwn');
 });

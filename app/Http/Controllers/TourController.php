@@ -160,7 +160,7 @@ class TourController extends Controller
         $link= new Link();
         $rowOwn=$link->where('tour_id',$request->tour_id)->where('type','own')->where('user_id',Auth::id())->get();
         if($rowOwn->count()!=1) return redirect('home');
-        if($request->choose='unjoin'){
+        if($request->choose=='unjoin'){
             $row=$link->where('tour_id',$request->tour_id)->where('type','join')->where('user_id',$request->user_id)->get();
             if($row->count()==1){
                 foreach ($row as $row1){

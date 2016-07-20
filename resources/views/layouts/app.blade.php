@@ -314,9 +314,8 @@
                 '</a>'
             ].join('');
         }
-       
+
     </script>
-    
         <div class='blurred-container navbar navbar-fixed-bottom' style="height:90px">
             <div style="height:55px"></div>
             <div class="container text-left">
