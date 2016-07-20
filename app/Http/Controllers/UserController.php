@@ -18,7 +18,7 @@ class UserController extends Controller
     public function show($id)
     {
         //
-        $table=User::find($id);
+        $table=User::select('id','name','email','address','gender','birthday','avatar_photo','cover_photo')->find($id);
         return view('user')->with("id",$table);
     }
 

@@ -48,8 +48,8 @@ class TourController extends Controller
     public function show($id)
     {
         //
-        $tour=Tour::find($id);
-        $link = Link::join('users', 'links.user_id', '=', 'users.id')->select('*')->where('tour_id',$id)->get();
+        $tour=Tour::select('id','cover_photo','tour_name','start_time','start_place','user_max','status')->find($id);
+        $link = Link::join('users', 'links.user_id', '=', 'users.id')->select('links.id','links.user_id','links.tour_id','links.type','users.name','users.avatar_photo')->where('tour_id',$id)->get();
         return view('tour')->with("id",$tour)->with("userTour",$link);
     }
 
