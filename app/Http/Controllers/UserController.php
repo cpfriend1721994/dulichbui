@@ -8,6 +8,10 @@ use App\Http\Requests;
 
 use App\User;
 
+use App\Tour;
+
+use App\Link;
+
 use App\Http\Requests\UserFormRequest;
 
 use Auth;
@@ -19,7 +23,8 @@ class UserController extends Controller
     {
         //
         $table=User::select('id','name','email','address','gender','birthday','avatar_photo','cover_photo')->find($id);
-        return view('user')->with("id",$table);
+        $tour=Tour::join('links','links.tour_id','=','tours.id')->select('tours.id','tours.cover_photo','tours.tour_name','tours.start_time','tours.start_place','tours.user_max','tours.status','links.type','links.user_id')->get();
+        return view('user')->with("id",$table)->with("listTour",$tour);
     }
 
 

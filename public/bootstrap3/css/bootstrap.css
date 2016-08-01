@@ -290,7 +290,17 @@ table {
     border: 1px solid #ddd !important;
   }
 }
-
+/*Customize the bootstrap*/
+::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+    background-color: #F5F5F5;
+}
+::-webkit-scrollbar-thumb {
+    width: 7px;
+    background-image: -webkit-linear-gradient(#8A8A8A, #8A8A8A);
+}
+/**/
 *,
 *:before,
 *:after {

@@ -14,6 +14,8 @@ use App\Comment;
 
 use Auth;
 
+use App\Plan;
+
 class TourController extends Controller
 {
 
@@ -50,13 +52,16 @@ class TourController extends Controller
         //
         $tour=Tour::select('id','cover_photo','tour_name','start_time','start_place','user_max','status')->find($id);
         $link = Link::join('users', 'links.user_id', '=', 'users.id')->select('links.id','links.user_id','links.tour_id','links.type','users.name','users.avatar_photo')->where('tour_id',$id)->get();
-        return view('tour')->with("id",$tour)->with("userTour",$link);
+        $plan= Plan::where("tour_id",$id)->get();
+        $comment=Comment::join('users','comments.user_id','=','users.id')->select('comments.*','users.name','users.avatar_photo')->where('tour_id',$id)->get();
+        return view('tour')->with("id",$tour)->with("userTour",$link)->with('listPlan',$plan)->with('comment',$comment);
     }
 
 
     public function update(Request $request, $id)
     {
         //
+        $this->checkOwn($id);
         $tour = Tour::find($id); 
         $tour->tour_name = $request->tour_name;
         $tour->start_time = $request->start_time;
@@ -76,9 +81,8 @@ class TourController extends Controller
     public function destroy($id)
     {
         //
+        $this->checkOwn($id);
         $link= new Link();
-        $rowOwn=$link->where('tour_id',$id)->where('type','own')->where('user_id',Auth::id())->get();
-        if($rowOwn->count()!=1) return redirect('home');
         $row=$link->where('tour_id',$id)->delete();
         $tour=Tour::find($id)->delete();
         return redirect('user/'.Auth::id());
@@ -146,9 +150,8 @@ class TourController extends Controller
      public function updateLinkByOwn(Request $request)
     /*Request include 'tour_id' and 'user_id' and 'choose'={agree,disagree,unjoin}*/
     {
+        $this->checkOwn($request->tour_id);
         $link= new Link();
-        $rowOwn=$link->where('tour_id',$request->tour_id)->where('type','own')->where('user_id',Auth::id())->get();
-        if($rowOwn->count()!=1) return redirect('home');
         if($request->choose=='unjoin'){
             $row=$link->where('tour_id',$request->tour_id)->where('type','join')->where('user_id',$request->user_id)->get();
             if($row->count()==1){
@@ -176,5 +179,11 @@ class TourController extends Controller
                 }
             }
         }
+    }
+
+    public function checkOwn($tour_id)
+    {
+        $rowOwn=Link::where('tour_id',$tour_id)->where('type','own')->where('user_id',Auth::id())->get();
+        if($rowOwn->count()!=1) return redirect('home');
     }
 }

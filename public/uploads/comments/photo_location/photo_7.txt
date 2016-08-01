@@ -1,0 +1,1 @@
+a:3:{i:0;s:12:"photo0_7.jpg";i:1;s:12:"photo1_7.jpg";i:2;s:12:"photo2_7.jpg";}

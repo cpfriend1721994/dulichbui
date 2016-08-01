@@ -24,6 +24,8 @@ class CreatePlansTable extends Migration
             $table->string('planto_id');
             $table->string('vehicle');
             $table->string('period');
+            $table->string('lat');
+            $table->string('lng');
             $table->timestamps();
         });
     }

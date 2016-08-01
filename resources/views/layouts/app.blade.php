@@ -23,7 +23,44 @@
     <link href="../roboto.css" rel='stylesheet' type='text/css'>
     <link href='../css/rotating-card.css' rel='stylesheet' />
 
-
+    
+    <style>
+        #map-canvas{
+            width: 600px;
+            height: 600px;
+        }
+    </style>
+    <script type="text/javascript" src="../assets/js/jquery-1.11.2.min.js"></script>
+    <script language="javascript" type="text/javascript">
+        $(function () {
+            $("#dvFileUpload").change(function () {
+                if (typeof (FileReader) != "undefined") {
+                    var dvPreview = $("#dvPreview");
+                    dvPreview.html("");
+                    var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.gif|.png|.bmp)$/;
+                    $($(this)[0].files).each(function () {
+                        var file = $(this);
+                        if (regex.test(file[0].name.toLowerCase())) {
+                            var reader = new FileReader();
+                            reader.onload = function (e) {
+                                var img = $("<img />");
+                                img.attr("style", "margin-bottom:10px;height:auto;max-height:100px;width:100px;margin-left:1%;");
+                                img.attr("src", e.target.result);
+                                dvPreview.append(img);
+                            }
+                            reader.readAsDataURL(file[0]);
+                        } else {
+                            alert(file[0].name + " is not a valid image file.");
+                            dvPreview.html("");
+                            return false;
+                        }
+                    });
+                } else {
+                    alert("This browser does not support HTML5 FileReader.");
+                }
+            });
+        });
+    </script> 
     {{--  --}}
 
 
@@ -211,7 +248,7 @@
     @yield('content')
 
 {{--  --}}
-
+    
     <script src="../jquery/jquery-1.10.2.js" type="text/javascript"></script>
     <script src="../assets/js/jquery-ui-1.10.4.custom.min.js" type="text/javascript"></script>
     <script type="text/javascript" src="../assets/js/jquery-1.11.2.min.js"></script>
@@ -222,91 +259,10 @@
     <script src="../assets/js/get-shit-done.js"></script>
     <script type="text/javascript" src="../assets/js/bootstrap-table.js"></script>
     <script src="../assets/js/custom.js"></script>
-    <script type="text/javascript">
-        var $table = $('#fresh-table'),
-            $alertBtn = $('#alertBtn'), 
-            full_screen = false,
-            window_height;
-            
-        $().ready(function(){
-            
-            window_height = $(window).height();
-            table_height = window_height - 20;
-            
-            
-            $table.bootstrapTable({
-                toolbar: ".toolbar",
+    
+    
 
-                showRefresh: true,
-                search: true,
-                showToggle: true,
-                showColumns: true,
-                pagination: true,
-                striped: true,
-                sortable: true,
-                height: table_height,
-                pageSize: 25,
-                pageList: [25,50,100],
-                
-                formatShowingRows: function(pageFrom, pageTo, totalRows){
-                    //do nothing here, we don't want to show the text "showing x of y from..." 
-                },
-                formatRecordsPerPage: function(pageNumber){
-                    return pageNumber + " rows visible";
-                },
-                icons: {
-                    refresh: 'fa fa-refresh',
-                    toggle: 'fa fa-th-list',
-                    columns: 'fa fa-columns',
-                    detailOpen: 'fa fa-plus-circle',
-                    detailClose: 'fa fa-minus-circle'
-                }
-            });
-            
-            window.operateEvents = {
-                'click .like': function (e, value, row, index) {
-                    alert('You click like icon, row: ' + JSON.stringify(row));
-                    console.log(value, row, index);
-                },
-                'click .edit': function (e, value, row, index) {
-                    alert('You click edit icon, row: ' + JSON.stringify(row));
-                    console.log(value, row, index);    
-                },
-                'click .remove': function (e, value, row, index) {
-                    $table.bootstrapTable('remove', {
-                        field: 'id',
-                        values: [row.id]
-                    });
-            
-                }
-            };
-            
-            $alertBtn.click(function () {
-                alert("You pressed on Alert");
-            });
-        
-            
-            $(window).resize(function () {
-                $table.bootstrapTable('resetView');
-            });    
-        });
-        
 
-        function operateFormatter(value, row, index) {
-            return [
-                '<a rel="tooltip" title="Like" class="table-action like" href="javascript:void(0)" title="Like">',
-                    '<i class="fa fa-heart"></i>',
-                '</a>',
-                '<a rel="tooltip" title="Edit" class="table-action edit" href="javascript:void(0)" title="Edit">',
-                    '<i class="fa fa-edit"></i>',
-                '</a>',
-                '<a rel="tooltip" title="Remove" class="table-action remove" href="javascript:void(0)" title="Remove">',
-                    '<i class="fa fa-remove"></i>',
-                '</a>'
-            ].join('');
-        }
-
-    </script>
 {{--  --}}
 </body>
 
